@@ -1,7 +1,7 @@
 <template>
   <!-- 快速导航tab -->
   <div class='tabs-view-container'>
-    <router-link class="tabs-view" v-for="tag in Array.from(visitedViews)" :to="tag.path" :key="tag.path">
+    <router-link class="tabs-view" v-for="tag in Array.from(visitedViews)" :to="tag.fullPath" :key="tag.fullPath">
       <el-tag :closable="true" @close='closeViewTabs(tag,$event)'>
         {{tag.name}}
       </el-tag>
@@ -22,7 +22,9 @@
           $event.preventDefault()
         },
         addViewTabs() {
-          this.$store.dispatch('addVisitedViews', this.$route.matched[this.$route.matched.length - 1])
+          let curr = this.$route.matched[this.$route.matched.length - 1];
+          curr.fullPath = this.$route.fullPath; // 带参的路径，修复。
+          this.$store.dispatch('addVisitedViews', curr)
         }
       },
       watch: {

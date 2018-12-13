@@ -11,7 +11,6 @@ const user = {
     uid: Cookies.get('userId'),
     token: Cookies.get('userToken'),
     userInfo:null,
-
   },
 
   mutations: {
@@ -38,16 +37,14 @@ const user = {
     // 邮箱登录
     LoginByEmail({ commit }, userInfo) {
       //const email = userInfo.email.trim();
-
-
       //
       return new Promise((resolve, reject) => {
         console.log('登录入参：',userInfo)
         global.get( api.login,{params:userInfo}, function(res){
             //登录接口，可只返回token 和 uid 。然后可根据uid 查询用户信息
-               console.log('-------获取到登录返回信息：',JSON.stringify(res) )
-               if(res.body.resultCode == 0){
-                    var res = res.body.data;
+               console.log('-------获取到登录返回信息：',res)
+               if(res.code == 0){
+                    var res = res.res;
 
                     // 按一天8小时工作制设置过期时间
                       Cookies.set('userToken', res.token,{ expires: 1/3}); //设置token
@@ -71,9 +68,7 @@ const user = {
         },function(res){
             reject(res);
         })
-
         return false;
-
       });
     },
 
@@ -81,9 +76,9 @@ const user = {
     GetInfo({ dispatch,commit, state }) {
         return new Promise((resolve, reject) => {
             global.get( api.getUserInfo,{params:{'userId':state.uid}}, function(res){
-                  console.log('-------根据id获取用户信息：',JSON.stringify(res) )
-                  if(res.body.resultCode == 0){
-                       var res = res.body.data;
+                  console.log('-------根据id获取用户信息：',res)
+                  if(res.code == 0){
+                       var res = res.res;
                              
                              // Cookies.set('userToken', res.token); //Cookies.get('userId')
                              // Cookies.set('userId', res.uid); //Cookies.get('userId')

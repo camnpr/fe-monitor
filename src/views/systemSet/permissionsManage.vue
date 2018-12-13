@@ -147,8 +147,8 @@ export default {
           // })
         global.get( api.roleAndUser,{params: vm.listQuery },function(res){
                 //console.log('-------获取到数据：',JSON.stringify(res) )
-                var data = res.body;
-               if(data.resultCode == 0){ 
+                var data = res;
+               if(data.code == 0){ 
                     
                     vm.list = data.data.data;
                     console.log('列表数据：',vm.list);
@@ -159,10 +159,10 @@ export default {
                     vm.listLoading = false;
                     
                }else{
-                    //alert(res.body.resultMsg)
+                    //alert(res.msg)
                     Message({
                         showClose: true,
-                        message: res.body.resultMsg,
+                        message: res.msg,
                         type: 'error'
                     });
                     vm.listLoading = false;
@@ -218,16 +218,16 @@ export default {
         var vm = this;
         global.get( api.getMenuAndElement,{params: {roleId:item.smRoleBeanDto.id} },function(res){
             console.log('-------获取到数据：',JSON.stringify(res) )
-            var data = res.body;
-           if(data.resultCode == 0){ 
+            var data = res;
+           if(data.code == 0){ 
                 
                 vm.smMenuBeanDtoList = data.data.smMenuBeanDtoList;
                 console.log('列表数据：',vm.smMenuBeanDtoList);
            }else{
-                //alert(res.body.resultMsg)
+                //alert(res.msg)
                 Message({
                     showClose: true,
-                    message: res.body.resultMsg,
+                    message: res.msg,
                     type: 'error'
                 });
                 

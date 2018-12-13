@@ -14,6 +14,11 @@ const authRedirect = _import('login/authredirect');
 const sendPWD = _import('login/sendpwd');
 const reset = _import('login/reset');
 
+/* 广告管理 */
+const adList = _import('ad/list');
+const adAdd = _import('ad/add');
+const adUpdate = _import('ad/update');
+
 /* components */
 // const Tinymce = _import('components/tinymce');
 // const Mixin = _import('components/mixin');
@@ -39,10 +44,6 @@ const Mixin = _import('example/mixin');
 
 /* 系统管理*/
 const PermissionsManage = _import('systemSet/permissionsManage');
-/* 学生管理*/
-const StudentList = _import('student/studentList');
-const StudentAdd = _import('student/studentAdd');
-const StudentUpdate = _import('student/studentUpdate');
 
 Vue.use(Router);
 
@@ -59,13 +60,13 @@ const constantRouterMap = [
   { path: '/authredirect', component: authRedirect, hidden: true },
   { path: '/sendpwd', component: sendPWD, hidden: true },
   { path: '/reset', component: reset, hidden: true },
-  { path: '/404', component: Err404, hidden: true },  //假地址时重定向
-  { path: '/401', component: Err401, hidden: true },  //无权限时重定向
+  { path: '/404', component: Err404, hidden: true },  // 假地址时重定向
+  { path: '/401', component: Err401, hidden: true },  // 无权限时重定向
 
   {
     path: '/',
     //component: Layout,
-    redirect: '/index/readme',  //重定向到默认首页
+    redirect: '/index/readme',  // 重定向到默认首页
 
     hidden: true,
 
@@ -80,6 +81,20 @@ const constantRouterMap = [
     children: [
       { path: 'readme', component: Readme, name: '系统说明' },
       { path: 'personalInfo', component: PersonalInfo, name: '个人信息' }
+    ]
+  },
+
+  {
+    path: '/ad',
+    component: Layout,
+    redirect: 'noredirect',
+    name: '广告',
+    // icon: '404',
+    children: [
+      // { path: '', component: adList, name: 'TETET'},
+      { path: 'list', component: adList, name: '广告列表' },
+      { path: 'add', component: adAdd, name: '添加广告' },
+      { path: 'update', component: adUpdate, name: '修改广告' },
     ]
   },
 
@@ -115,19 +130,6 @@ const constantRouterMap = [
     // icon: '404',
     children: [
       { path: 'permissionsManage', component: PermissionsManage, name: '权限管理' },
-
-    ]
-  },
-  {
-    path: '/studentsManage',
-    component: Layout,
-    redirect: 'noredirect',
-    name: '学生管理',
-    // icon: '404',
-    children: [
-      { path: 'studentList', component: StudentList, name: '学生列表' },
-      { path: 'studentAdd', component: StudentAdd, name: '学生添加' },
-      { path: 'studentUpdate', component: StudentUpdate, name: '学生修改' },
 
     ]
   },

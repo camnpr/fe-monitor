@@ -77,183 +77,179 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
-    
-    import TabsView from './TabsView';
-    
-    import Screenfull from 'components/Screenfull';
-    import ErrorLog from 'components/ErrLog';
-    import errLogStore from 'store/errLog';
+import { mapGetters } from "vuex";
 
-    import {global} from 'src/global/global';
-    import Cookies from 'js-cookie';
-    import md5 from 'blueimp-md5';
+import TabsView from "./TabsView";
 
-    export default {
-      components: {
-        TabsView,
-        
-        ErrorLog,
-        Screenfull
-      },
-      data() {
-        const validateOldPassword = (rule, value, callback) => {
-            if ( md5('@gome'+value) !== md5('@gome123456') ) { 
-                  callback(new Error('旧密码不正确！'));
-            } else {
-                
-                callback();
-            }
-        };
-        const validateNewPassword2 = (rule, value, callback) => {
-                if (value !== this.passwordForm.newPassword) {
-                  callback(new Error('两次输入密码不一致!'));
-                } else {
-                  callback();
-                }
-        };
+import Screenfull from "components/Screenfull";
+import ErrorLog from "components/ErrLog";
+import errLogStore from "store/errLog";
 
-        return {
-            log: errLogStore.state.errLog,
-            dialogVisible:false,
-            dialogFormVisible:false,
-            themeValue: localStorage.getItem("themeValue") ? localStorage.getItem("themeValue") : 'blue',
-            passwordForm: {
-                "oldPassword":'',
-                "newPassword":'',
-                "newPassword2":'',
-            },
-            passwordFormRules: {
-                oldPassword: [
-                    { required: true, trigger: 'blur', message: '旧密码不能为空！'},
-                    { required: true, trigger: 'blur' , validator: validateOldPassword}
-                ],
-                newPassword: [
-                    { required: true, trigger: 'blur', message: '新密码不能为空！'},
-                ],
-                newPassword2: [
-                    { required: true, trigger: 'blur', message: '重复密码不能为空！'},
-                    { required: true, trigger: 'blur' , validator: validateNewPassword2}
-                ]
-            },
-        }
-      },
-      computed: {
-        ...mapGetters([
-          'sidebar',
-          'userInfo',
-            
-        ])
-      },
-       mounted() {
-            var vm = this;
+import { global } from "src/global/global";
+import Cookies from "js-cookie";
+import md5 from "blueimp-md5";
 
-      },
-      methods: {
-        //换肤
-        handleChangeTheme(){
-            var vm = this;
-            global.changeTheme(vm.themeValue);
+export default {
+  components: {
+    TabsView,
 
-            this.dialogVisible = false;
-        },
-        handlePwdModifySubmit(formName){
-            var vm = this;
-            console.log('---',this.passwordForm)
-            vm.$refs.passwordForm.validate(valid => {
-                if (valid) {
-                    alert('恭喜:旧密码验证成功!')
-                   var par = {
-                            "oldPassword": md5('@gome123456'),
-                            "newPassword": md5('@gome' + vm.passwordForm.newPassword),
-                            "newPassword2": md5('@gome' + vm.passwordForm.newPassword2),
-                    }
-                    console.log('密码修改入参为：',par)
-                } else {
-                  console.log('error submit!!');
-                  return false;
-                }
-            });
-        },
-        toggleSideBar() {
-            $(this).toggleClass('is-active');
-            this.$store.dispatch('ToggleSideBar')
-        },
-        logout() {
-          this.$store.dispatch('LogOut').then(() => {
-                location.reload();
-          });
-        }
+    ErrorLog,
+    Screenfull
+  },
+  data() {
+    const validateOldPassword = (rule, value, callback) => {
+      if (md5("@gome" + value) !== md5("@gome123456")) {
+        callback(new Error("旧密码不正确！"));
+      } else {
+        callback();
       }
+    };
+    const validateNewPassword2 = (rule, value, callback) => {
+      if (value !== this.passwordForm.newPassword) {
+        callback(new Error("两次输入密码不一致!"));
+      } else {
+        callback();
+      }
+    };
+
+    return {
+      log: errLogStore.state.errLog,
+      dialogVisible: false,
+      dialogFormVisible: false,
+      themeValue: localStorage.getItem("themeValue")
+        ? localStorage.getItem("themeValue")
+        : "blue",
+      passwordForm: {
+        oldPassword: "",
+        newPassword: "",
+        newPassword2: ""
+      },
+      passwordFormRules: {
+        oldPassword: [
+          { required: true, trigger: "blur", message: "旧密码不能为空！" },
+          { required: true, trigger: "blur", validator: validateOldPassword }
+        ],
+        newPassword: [
+          { required: true, trigger: "blur", message: "新密码不能为空！" }
+        ],
+        newPassword2: [
+          { required: true, trigger: "blur", message: "重复密码不能为空！" },
+          { required: true, trigger: "blur", validator: validateNewPassword2 }
+        ]
+      }
+    };
+  },
+  computed: {
+    ...mapGetters(["sidebar", "userInfo"])
+  },
+  mounted() {
+    var vm = this;
+  },
+  methods: {
+    //换肤
+    handleChangeTheme() {
+      var vm = this;
+      global.changeTheme(vm.themeValue);
+
+      this.dialogVisible = false;
+    },
+    handlePwdModifySubmit(formName) {
+      var vm = this;
+      console.log("---", this.passwordForm);
+      vm.$refs.passwordForm.validate(valid => {
+        if (valid) {
+          alert("恭喜:旧密码验证成功!");
+          var par = {
+            oldPassword: md5("@gome123456"),
+            newPassword: md5("@gome" + vm.passwordForm.newPassword),
+            newPassword2: md5("@gome" + vm.passwordForm.newPassword2)
+          };
+          console.log("密码修改入参为：", par);
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    },
+    toggleSideBar() {
+      $(this).toggleClass("is-active");
+      this.$store.dispatch("ToggleSideBar");
+    },
+    logout() {
+      this.$store.dispatch("LogOut").then(() => {
+        location.reload();
+      });
     }
+  }
+};
 </script>
 
 <style rel="stylesheet/scss" lang="scss" >
-    .navbar {
-        height: 50px;
-        line-height: 50px;
-        border-radius: 0px !important;
-        .fa-bars{
-            cursor: pointer;
-            line-height: 50px;
-            height: 50px;
-            float: left;
-            padding: 0 15px;
-        }
-        /*.hideSidebar .fa-bars{
+.navbar {
+  height: 50px;
+  line-height: 50px;
+  border-radius: 0px !important;
+  .fa-bars {
+    cursor: pointer;
+    line-height: 50px;
+    height: 50px;
+    float: left;
+    padding: 0 15px;
+  }
+  /*.hideSidebar .fa-bars{
             display: none;
         }*/
-        .fa-bars[isactive] {
-            transform: rotate(90deg);
-        }
-        .hamburger-container {
-            line-height: 50px;
-            height: 50px;
-            float: left;
-            padding: 0 10px;
-        }
-        .errLog-container {
-            display: inline-block;
-            position: absolute;
-            right: 150px;
-        }
-        .screenfull{
-             position: absolute;
-             right: 90px;
-             top: 16px;
-             color: red;
-        }
-        .avatar-container {
-            height: 50px;
-            display: inline-block;
-            position: absolute;
-            right: 35px;
-            .avatar-wrapper {
-                cursor: pointer;
-               /* margin-top:5px;*/
-                padding: 5px ;
-                position: relative;
-                height: 40px;
-                line-height: 40px;
-                .user-name{
-                    float: left;
-                    margin-right: 5px;
-                }
-                
-                .user-avatar {
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 50%;
-                }
-                .el-icon-caret-bottom {
-                    position: absolute;
-                    right: -20px;
-                    top: 25px;
-                    font-size: 12px;
-                }
-            }
-        }
+  .fa-bars[isactive] {
+    transform: rotate(90deg);
+  }
+  .hamburger-container {
+    line-height: 50px;
+    height: 50px;
+    float: left;
+    padding: 0 10px;
+  }
+  .errLog-container {
+    display: inline-block;
+    position: absolute;
+    right: 150px;
+  }
+  .screenfull {
+    position: absolute;
+    right: 90px;
+    top: 16px;
+    color: red;
+  }
+  .avatar-container {
+    height: 50px;
+    display: inline-block;
+    position: absolute;
+    right: 35px;
+    .avatar-wrapper {
+      cursor: pointer;
+      /* margin-top:5px;*/
+      padding: 5px;
+      position: relative;
+      height: 40px;
+      line-height: 40px;
+      .user-name {
+        float: left;
+        margin-right: 5px;
+      }
+
+      .user-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+      .el-icon-caret-bottom {
+        position: absolute;
+        right: -20px;
+        top: 25px;
+        font-size: 12px;
+      }
     }
+  }
+}
 </style>
 
 

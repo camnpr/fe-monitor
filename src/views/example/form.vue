@@ -118,17 +118,17 @@
                 //根据url中的参数，进行ajax获取表单数据
                 global.get( api.getForm,{params:{'id':data.id}}, function(res){
                       console.log('-------根据id获取表单信息：',JSON.stringify(res) )
-                      if(res.body.resultCode == 0){
-                           var res = res.body.data;
+                      if(res.code == 0){
+                           var res = res.res;
                                 console.log('=====',res);
 
                                 vm.ruleForm = res
                                 
                       }else{
-                            //alert(res.body.resultMsg)
+                            //alert(res.msg)
                             Message({
                                 showClose: true,
-                                message: res.body.resultMsg,
+                                message: res.msg,
                                 type: 'error'
                             });
                       }

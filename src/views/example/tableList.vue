@@ -190,8 +190,8 @@ export default {
           // })
         global.get( api.tableList,{params: vm.listQuery },function(res){
                 //console.log('-------获取到数据：',JSON.stringify(res) )
-                let data = res.body;
-               if(data.resultCode == 0){ 
+                let data = res;
+               if(data.code == 0){ 
                     
                     vm.list = data.data.data;
                     console.log('列表数据：',vm.list);
@@ -202,10 +202,10 @@ export default {
                     vm.listLoading = false;
                     
                }else{
-                    //alert(res.body.resultMsg)
+                    //alert(res.msg)
                     Message({
                         showClose: true,
-                        message: res.body.resultMsg,
+                        message: res.msg,
                         type: 'error'
                     });
                     vm.listLoading = false;
@@ -240,8 +240,8 @@ export default {
 
         // global.get( url,{params: par },function(res){
         //         console.log('-------开发环境获取到数据：',JSON.stringify(res) )
-        //         let data = res.body;
-        //        if(data.resultCode == 0){ 
+        //         let data = res;
+        //        if(data.code == 0){ 
                     
                    
                     

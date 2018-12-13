@@ -1,8 +1,8 @@
 /*
  * @Author: camnpr 
  * @Date: 2018-08-29 17:19:46 
- * @Last Modified by:   camnpr 
- * @Last Modified time: 2018-08-29 17:19:46 
+ * @Last Modified by: yhw.yinhongwei
+ * @Last Modified time: 2018-09-17 17:19:29
  */
 
 import Vue from 'vue';
@@ -85,20 +85,17 @@ export const global = {
             // 响应成功回调
             //console.log('成功回调')
 
-
             setTimeout(function () {
-                sucCb(response);
+                sucCb(response.body);
                 if (isLoading) {
                     loadingInstance.close();
                 }
-
             }, 1000)
-
 
         }, (response) => {
             // 响应错误回调
             //console.log('失败回调')
-            errorCb(response);
+            errorCb(response.body);
             if (isLoading) {
                 loadingInstance.close();
             }
@@ -129,7 +126,7 @@ export const global = {
         Vue.http.post(url, body, options).then((response) => {
             // 响应成功回调
             //console.log('成功回调')
-            sucCb(response);
+            sucCb(response.body);
             if (isLoading) {
                 loadingInstance.close();
             }
@@ -137,7 +134,7 @@ export const global = {
         }, (response) => {
             // 响应错误回调
             //console.log('失败回调')
-            errorCb(response);
+            errorCb(response.body);
             if (isLoading) {
                 loadingInstance.close();
             }

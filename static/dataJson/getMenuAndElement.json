@@ -1,7 +1,7 @@
 {
-    "resultCode": "0",
-    "resultMsg": "",
-    "data": {
+    "code": "0",
+    "msg": "",
+    "res": {
         "smMenuBeanDtoList": [
             {
             "id": "1",

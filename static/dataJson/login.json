@@ -1,7 +1,7 @@
 {
-  "resultCode": "0",
-  "resultMsg": "登录出错返回信息1",
-  "data":{  
+  "code": "0",
+  "msg": "登录出错返回信息1",
+  "res":{  
             
             "token": "aabbccdd",
             

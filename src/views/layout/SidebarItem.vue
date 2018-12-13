@@ -2,9 +2,9 @@
     <div>
         <!-- 菜单权限json（调试专用）：==={{ routes | json }} -->
         <template v-if="routes">
-            <router-link to="/index/personalInfo" v-if="routes['/index/personalInfo']" >
-                <el-menu-item index="/index/personalInfo">
-                    <i class="fa fa-tachometer" aria-hidden="true"></i> 总览            
+            <router-link to="/ad/list" v-if="routes['/ad/list']" >
+                <el-menu-item index="/ad/list">
+                    <i class="fa fa-tachometer" aria-hidden="true"></i> 广告管理            
                 </el-menu-item>
             </router-link>
 

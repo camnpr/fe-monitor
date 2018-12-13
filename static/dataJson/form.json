@@ -1,7 +1,7 @@
 {
-  "resultCode": "0",
-  "resultMsg": "表单接口出错信息1",
-  "data":{  
+  "code": "0",
+  "msg": "表单接口出错信息1",
+  "res":{  
   		"name": "",
   		"region": "",
   		"date1": "",

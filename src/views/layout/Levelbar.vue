@@ -22,13 +22,13 @@
       },
       methods: {
         getBreadcrumb() {
-          console.log('----', this.$route.matched)
+          // console.log('----', this.$route.matched)
           let matched = this.$route.matched.filter(item => item.name);
           const first = matched[0];
           if (first && (first.name !== '首页' || first.path !== '')) {
             matched = [{ name: '首页', path: '/index/personalInfo' }].concat(matched)
           }
-          console.log('面包屑:',matched);
+          // console.log('面包屑:',matched);
           this.levelList = matched;
         }
       },

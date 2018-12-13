@@ -10,7 +10,22 @@ const app = {
     },
     theme: 'default',
     livenewsChannels: Cookies.get('livenewsChannels') || '[]',
-    visitedViews: []
+    visitedViews: [],
+    adTypeList: [
+      { key: "0", name: "默认" },
+      { key: "1", name: "元旦" },
+      { key: "2", name: "情人节"},
+      { key: "3", name: "妇女节"},
+      { key: "4", name: "清明节"},
+      { key: "5", name: "母亲节"},
+      { key: "6", name: "端午节"},
+      { key: "7", name: "建党日"},
+      { key: "8", name: "七夕节"},
+      { key: "9", name: "中秋节"},
+      { key: "10", name: "国庆节"},
+      { key: "11", name: "感恩节"},
+      { key: "12", name: "平安夜"},
+    ]
   },
   mutations: {
     TOGGLE_SIDEBAR: state => {
